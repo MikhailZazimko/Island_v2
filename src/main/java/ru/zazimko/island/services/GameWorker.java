@@ -38,15 +38,14 @@ public class GameWorker extends Thread {
     private void runWorkers(View view, List<OrganismWorker> workers) {
         ExecutorService servicePool = Executors.newFixedThreadPool(CORE_POOL_SIZE);
         workers.forEach(servicePool::submit);
-        servicePool.shutdown();
-        awaitPool(view, servicePool);
+            servicePool.shutdown();
+            awaitPool(view, servicePool);
     }
 
     @SneakyThrows
     private void awaitPool(View view, ExecutorService servicePool) {
         if (servicePool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) {
             view.showStatistics();
-            view.printInfo();
         }
 
     }
